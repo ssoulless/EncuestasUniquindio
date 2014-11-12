@@ -1,0 +1,417 @@
+<?php
+
+/**
+ * Implements hook_libraries_info().
+ *
+ * For defining external libraries.
+ */
+function chelsea_analysis_libraries_info() {
+  // A very simple library. No changing APIs (hence, no versions), no variants.
+  // Expected to be extracted into 'sites/all/libraries/phpexcel'.
+  $libraries['phpexcel'] = array(
+    'name' => 'PHPExcel library',
+    'vendor url' => 'https://phpexcel.codeplex.com/',
+    'download url' => 'https://phpexcel.codeplex.com/releases/view/119187',
+    'version callback' => 'phpexcel_version_callback',
+    'files' => array(
+      'php' => array('Classes/PHPExcel.php'), //this can be a path to the file location like array('lib/simple.js')
+    ),
+  );
+  return $libraries;
+}
+
+function phpexcel_version_callback(){
+   return TRUE;
+}
+
+function chelsea_analysis_menu() {
+  $items['admin/chelsea-analysis'] = array(
+    'title' => t('Chelsea Analysis'),
+    'page callback' => 'chelsea_analysis_page',
+    'access arguments' => array('administer chelsea_analysis'),
+	'access callback' => TRUE,
+  );
+  return $items;
+}
+
+function chelsea_analysis_page_alter(&$page){
+dpm($page);
+}
+
+
+function chelsea_analysis_requirements($phase) {
+  $requirements = array();
+  $t = get_t();
+  $requirements['chelsea_analysis'] = array(
+    'title' => $t('PHPExcel Library'),
+  );
+  $libraries = libraries_get_libraries();
+  if (isset($libraries['PHPExcel'])) {
+    $requirements['PHPExcel']['value'] = $t('Installed');
+    $requirements['PHPExcel']['severity'] = REQUIREMENT_OK;
+  }
+  else {
+    $requirements['PHPExcel']['value'] = $t('Not Installed');
+    $requirements['PHPExcel']['severity'] = REQUIREMENT_ERROR;
+    $requirements['PHPExcel']['description'] = $t('Please install the PHPExcel library %url.', array('%url' => 'http://phpexcel.codeplex.com/'));
+  }
+
+  return $requirements;
+}
+
+function chelsea_analysis_contents(){
+  mysql_connect('localhost', 'servilla_alpha', 'grupoly2014');
+  mysql_select_db('servilla_encuestas');
+  $query = mysql_query("select nid, sid, serial, submitted, remote_addr from webform_submissions order by submitted desc limit 0,999999999");
+  $v5 = 0;$data = array();$v1 = 0;$v3 = 0;
+  while($v7 = mysql_fetch_assoc($query)) {
+  		foreach($v7 as $key => $value) {
+  				$data['submissions'][$v5][$key] = $value;
+  			}
+		$v5 += 1;
+	}
+
+  foreach ($data['submissions'] as $rows) {
+	$new_query = mysql_query("select sid, cid, no, data from webform_submitted_data where sid='".$rows['sid']."' limit 0,999999999");
+	while($v2 = mysql_fetch_assoc($new_query)){
+	  foreach($v2 as $key => $value){
+	    $data['submitted_data'][$v1][$v3][$key] = $value;
+	  }
+	  $v3 += 1;
+	}
+	$v1 += 1;
+  }
+  return $data;
+}
+
+function chelsea_analysis_page($a = 0, $b = '') {
+    
+    
+    
+    $page = "";
+	if (user_access('access content')) {
+	  $result = chelsea_analysis_contents();
+	  $submissions = count($result['submissions']);
+	  $si_no = array(
+	    array( 'q1si' => 0, 'q1no' => 0, 'q1null' => 0  ),
+		array( 'q2asi' => 0, 'q2ano' => 0, 'q2anull' => 0  ),
+		array( 'q2bsi' => 0, 'q2bno' => 0, 'q2bnull' => 0  ),
+		array( 'q2csi' => 0, 'q2cno' => 0, 'q2cnull' => 0  ),
+		array( 'q2dsi' => 0, 'q2dno' => 0, 'q2dnull' => 0  ),
+		array( 'q2esi' => 0, 'q2eno' => 0, 'q2enull' => 0  ),
+		array( 'q2fsi' => 0, 'q2fno' => 0, 'q2fnull' => 0  ),
+		array( 'q2gsi' => 0, 'q2gno' => 0, 'q2gnull' => 0  ),
+		array( 'q2hsi' => 0, 'q2hno' => 0, 'q2hnull' => 0  ),
+		array( 'q2isi' => 0, 'q2ino' => 0, 'q2inull' => 0  ),
+		array( 'q3alta' => 0, 'q3media' => 0, 'q3baja' => 0, 'q3ninguna' => 0 ),
+	  );
+	  foreach ($result['submitted_data'] as $submission) {
+	    foreach($submission as $rows){
+		  if ($rows['data'] == 'si'){
+		    if ($rows['cid'] == 16) { ++$si_no['q1si']; }
+			if ($rows['cid'] == 19) { ++$si_no['q2asi']; }
+			if ($rows['cid'] == 22) { ++$si_no['q2bsi']; }
+			if ($rows['cid'] == 25) { ++$si_no['q2csi']; }
+			if ($rows['cid'] == 28) { ++$si_no['q2dsi']; }
+			if ($rows['cid'] == 31) { ++$si_no['q2esi']; }
+			if ($rows['cid'] == 34) { ++$si_no['q2fsi']; }
+			if ($rows['cid'] == 37) { ++$si_no['q2gsi']; }
+			if ($rows['cid'] == 40) { ++$si_no['q2hsi']; }
+			if ($rows['cid'] == 43) { ++$si_no['q2isi']; }
+			
+		  }
+		  if ($rows['data'] == 'alta'){
+		    ++$si_no['q3alta'];
+		  }
+		  if ($rows['data'] == 'media'){
+		    ++$si_no['q3media'];
+		  }
+		  if ($rows['data'] == 'baja'){
+		    ++$si_no['q3baja'];
+		  }
+		  if ($rows['data'] == 'ninguna'){
+		    ++$si_no['q3ninguna'];
+		  }
+		  if ($rows['data'] == 'no'){
+		    if ($rows['cid'] == 16) { ++$si_no['q1no']; }
+			if ($rows['cid'] == 19) { ++$si_no['q2ano']; }
+			if ($rows['cid'] == 22) { ++$si_no['q2bno']; }
+			if ($rows['cid'] == 25) { ++$si_no['q2cno']; }
+			if ($rows['cid'] == 28) { ++$si_no['q2dno']; }
+			if ($rows['cid'] == 31) { ++$si_no['q2eno']; }
+			if ($rows['cid'] == 34) { ++$si_no['q2fno']; }
+			if ($rows['cid'] == 37) { ++$si_no['q2gno']; }
+			if ($rows['cid'] == 40) { ++$si_no['q2hno']; }
+			if ($rows['cid'] == 43) { ++$si_no['q2ino']; }
+			
+		  }
+		  if (empty($rows['data']) || is_null($rows['data'])){
+		    if ($rows['cid'] == 16) { ++$si_no['q1null']; }
+			if ($rows['cid'] == 19) { ++$si_no['q2anull']; }
+			if ($rows['cid'] == 22) { ++$si_no['q2bnull']; }
+			if ($rows['cid'] == 25) { ++$si_no['q2cnull']; }
+			if ($rows['cid'] == 28) { ++$si_no['q2dnull']; }
+			if ($rows['cid'] == 31) { ++$si_no['q2enull']; }
+			if ($rows['cid'] == 34) { ++$si_no['q2fnull']; }
+			if ($rows['cid'] == 37) { ++$si_no['q2gnull']; }
+			if ($rows['cid'] == 40) { ++$si_no['q2hnull']; }
+			if ($rows['cid'] == 43) { ++$si_no['q2inull']; }
+			
+		  }
+		}
+	  }
+	  $page .= "Envíos totales ".$submissions.'<br/><br/>';
+	  
+	  $page .= '<style type="text/css" media="screen">
+		#j_print table tr th{background-color:#ccc;}
+		#j_print table tr td{border-bottom:1px solid #ccc;}
+		.first_td{min-width:75%;}
+	</style>
+	<style type="text/css" media="print">
+		#j_print table tr th{background-color:#ccc;}
+		#j_print table tr td{border-bottom:1px solid #ccc;}
+		.first_td{min-width:75%;}
+	</style>
+	<div id="j_print">
+		<!-- Q 1 -->
+		<table id="j_q1">
+			<tr>
+				<th class="first_td" rowspan="2">Q1 ¿Ha desarrollado LOCA el Programa de XXXXXX proyectos de extensión (pasantías, prácticas empresariales, charlas) en su Institución a través de sus estudiantes y profesores?</th>
+				<th colspan="2">Análisis para cada respuesta</th>
+			</tr>
+			<tr>
+				<th>Count</th><th>hi</th>
+			</tr>
+			<tr>
+				<td class="first_td">Si</td><td>'.$si_no["q1si"].'</td><td>'.(($si_no['q1si'] / $submissions) * 100).'</td>
+			</tr>
+			<tr>
+				<td class="first_td">No</td><td>'.$si_no["q1no"].'</td><td>'.(($si_no['q1no'] / $submissions) * 100).'</td>
+			</tr>
+			<tr>
+				<td class="first_td">No responde</td><td>'.$si_no["q1null"].'</td><td>'.(($si_no['q1null'] / $submissions) * 100).'</td>
+			</tr>
+		</table>
+		<br/><br/>
+		<!-- Q 2 -->
+		<table id="j_q2">
+			<tr>
+				<th class="first_td" rowspan="3">Q2 Califique, según el cuadro que aparece a continuación, el impacto social que han tenido en su empresa, entidad o institución educativa los proyectos de extensión (pasantías, prácticas empresariales, prácticas docentes, capacitaciones, etc.) desarrollad</th>
+				<th colspan="6">Análisis para cada sub pregunta</th>
+			</tr>
+			<tr>
+				<th colspan="2">Si</th><th colspan="2">No</th><th colspan="2">No responde</th>
+			</tr>
+			<tr>
+				<th>fi</th><th>hi</th><th>fi</th><th>hi</th><th>fi</th><th>hi</th>
+			</tr>
+			<tr>
+				<td class="first_td">Q2a Aplicación de nuevos procesos técnicos, tecnológicos, productivos, pedagógicos, , culturales, sociales, etc.</td>
+				<td>'.$si_no['q2asi'].'</td><td>'.(($si_no['q2asi'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2ano'].'</td><td>'.(($si_no['q2ano'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2anull'].'</td><td>'.(($si_no['q2anull'] / $submissions) * 100).'</td>
+			</tr>
+			<tr>
+				<td class="first_td">Q2b Generación de nuevos proyectos pedagógicos ambientales o educativos.</td>
+				<td>'.$si_no['q2bsi'].'</td><td>'.(($si_no['q2bsi'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2bno'].'</td><td>'.(($si_no['q2bno'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2bnull'].'</td><td>'.(($si_no['q2bnull'] / $submissions) * 100).'</td>
+			</tr>
+			<tr>
+				<td class="first_td">Q2c Implementación de nuevos procedimientos, métodos científicos o pedagógicos.</td>
+				<td>'.$si_no['q2csi'].'</td><td>'.(($si_no['q2csi'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2cno'].'</td><td>'.(($si_no['q2cno'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2cnull'].'</td><td>'.(($si_no['q2cnull'] / $submissions) * 100).'</td>
+			</tr>
+			<tr>
+				<td class="first_td">Q2d Aportes específicos a los procesos didácticos, ambientales, educativos, sociales, investigativos, tecnológicos, científicos, de reconstrucción social y cultural.</td>
+				<td>'.$si_no['q2dsi'].'</td><td>'.(($si_no['q2dsi'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2dno'].'</td><td>'.(($si_no['q2dno'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2dnull'].'</td><td>'.(($si_no['q2dnull'] / $submissions) * 100).'</td>
+			</tr>
+			<tr>
+				<td class="first_td">Q2e Contribución a la interacción de la Institución con su comunidad educativa.</td>
+				<td>'.$si_no['q2esi'].'</td><td>'.(($si_no['q2esi'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2eno'].'</td><td>'.(($si_no['q2eno'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2enull'].'</td><td>'.(($si_no['q2enull'] / $submissions) * 100).'</td>
+			</tr>
+			<tr>
+				<td class="first_td">Q2f Aportes a los planes y proyección en seguridad alimentaria y gestión de riesgo.</td>
+				<td>'.$si_no['q2fsi'].'</td><td>'.(($si_no['q2fsi'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2fno'].'</td><td>'.(($si_no['q2fno'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2fnull'].'</td><td>'.(($si_no['q2fnull'] / $submissions) * 100).'</td>
+			</tr>
+			<tr>
+				<td class="first_td">Q2g Programas de formación continuada</td>
+				<td>'.$si_no['q2gsi'].'</td><td>'.(($si_no['q2gsi'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2gno'].'</td><td>'.(($si_no['q2gno'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2gnull'].'</td><td>'.(($si_no['q2gnull'] / $submissions) * 100).'</td>
+			</tr>
+			<tr>
+				<td class="first_td">Q2h Oferta de servicios técnicos, consultas, asesorías, pruebas y ensayos</td>
+				<td>'.$si_no['q2hsi'].'</td><td>'.(($si_no['q2hsi'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2hno'].'</td><td>'.(($si_no['q2hno'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2hnull'].'</td><td>'.(($si_no['q2hnull'] / $submissions) * 100).'</td>
+			</tr>
+			<tr>
+				<td class="first_td">Q2i Ejecución de políticas públicas</td>
+				<td>'.$si_no['q2isi'].'</td><td>'.(($si_no['q2isi'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2ino'].'</td><td>'.(($si_no['q2ino'] / $submissions) * 100).'</td>
+				<td>'.$si_no['q2inull'].'</td><td>'.(($si_no['q2inull'] / $submissions) * 100).'</td>
+			</tr>
+		</table>
+		<br/><br/>
+		<!-- Q 3 -->
+		<table id="j_q3">
+			<tr>
+				<th class="first_td" rowspan="2">Q3 Cómo percibe la relación entre el perfil profesional de los egresados del Programa de XXXXXX y sus posibilidades de desempeño en la institución o empresa</th>
+				<th colspan="2">Análisis para cada respuesta</th>
+			</tr>
+			<tr>
+				<th class="first_td">fi</th><th>hi</th>
+			</tr>
+			<tr>
+				<td class="first_td">Alta</td><td>'.$si_no["q3alta"].'</td><td>'.(($si_no['q3alta'] / $submissions) * 100).'</td>
+			</tr>
+			<tr>
+				<td class="first_td">media</td><td>'.$si_no["q3media"].'</td><td>'.(($si_no['q3media'] / $submissions) * 100).'</td>
+			</tr>
+			<tr>
+				<td class="first_td">baja</td><td>'.$si_no["q3baja"].'</td><td>'.(($si_no['q3baja'] / $submissions) * 100).'</td>
+			</tr>
+			<tr>
+				<td class="first_td">ninguna</td><td>'.$si_no["q3ninguna"].'</td><td>'.(($si_no['q3ninguna'] / $submissions) * 100).'</td>
+			</tr>
+		</table>
+		<br/><br>
+		<!-- Q 4 -->
+		<table id="j_q4">
+			<tr>
+				
+			</tr>
+			
+		</table>
+		<br/><br/>
+	</div>';
+	$rand = 'test';
+  	$filename = $rand.'.xls';
+  	$page .= '<div><a href="/sites/default/files/'.$filename.'">Download Excel Report</a></div>';
+
+  	include_once(drupal_get_path('module','chelsea_analysis').'/phpexcel.inc');
+	$data = array();
+
+  	$headers = array(array("Q1 ¿Ha desarrollado LOCA el Programa de XXXXXX proyectos de extensión (pasantías, prácticas empresariales, charlas) en su Institución a través de sus estudiantes y profesores?","ANÁLISIS PARA CADA RESPUESTA",""),array("Q2 CALIFIQUE, SEGÚN EL CUADRO QUE APARECE A CONTINUACIÓN, EL IMPACTO SOCIAL QUE HAN TENIDO EN SU EMPRESA, ENTIDAD O INSTITUCIÓN EDUCATIVA LOS PROYECTOS DE EXTENSIÓN (PASANTÍAS, PRÁCTICAS EMPRESARIALES, PRÁCTICAS DOCENTES, CAPACITACIONES, ETC.) DESARROLLAD","ANÁLISIS PARA CADA SUB PREGUNTA","","","","",""),array("Q3 CÓMO PERCIBE LA RELACIÓN ENTRE EL PERFIL PROFESIONAL DE LOS EGRESADOS DEL PROGRAMA DE XXXXXX Y SUS POSIBILIDADES DE DESEMPEÑO EN LA INSTITUCIÓN O EMPRESA","ANÁLISIS PARA CADA RESPUESTA",""));
+
+  	$result = 
+array(
+  		array(
+  			array("","COUNT","HI"),
+  			array(
+  				"Si",
+  				$si_no["q1si"],
+  				(($si_no['q1si'] / $submissions))),
+  			array(
+  				"No",
+  				$si_no["q1no"],
+  				(($si_no['q1no'] / $submissions))),
+  			array("No responde",
+  				$si_no["q1null"]),
+  			(($si_no['q1null'] / $submissions))),
+  		array(
+  			array("","Si","","NO","","NO RESPONDE",""),
+  			array("","FI","HI","FI","HI","FI","HI"),
+  			array("Q2a Aplicación de nuevos procesos técnicos, tecnológicos, productivos, pedagógicos, , culturales, sociales, etc.",
+  				$si_no['q2asi'],
+  				(($si_no['q2asi'] / $submissions)),
+  				$si_no['q2ano'],
+  				(($si_no['q2ano'] / $submissions)),
+  				$si_no['q2anull'],
+  				(($si_no['q2anull'] / $submissions))),
+  			array(
+  				"Q2b Generación de nuevos proyectos pedagógicos ambientales o educativos.",
+  				$si_no['q2bsi'],
+  				(($si_no['q2bsi'] / $submissions)),
+  				$si_no['q2bno'],
+  				(($si_no['q2bno'] / $submissions)),
+  				$si_no['q2bnull'],(($si_no['q2bnull'] / $submissions))),
+  			array("Q2c Implementación de nuevos procedimientos, métodos científicos o pedagógicos.",
+  				$si_no['q2csi'],
+  				(($si_no['q2csi'] / $submissions)),
+  				$si_no['q2cno'],
+  				(($si_no['q2cno'] / $submissions)),
+  				$si_no['q2cnull'],
+  				(($si_no['q2cnull'] / $submissions))),
+  			array("Q2d Aportes específicos a los procesos didácticos, ambientales, educativos, sociales, investigativos, tecnológicos, científicos, de reconstrucción social y cultural.",
+  				$si_no['q2dsi'],
+  				(($si_no['q2dsi'] / $submissions)),
+  				$si_no['q2dno'],
+  				(($si_no['q2dno'] / $submissions)),
+  				$si_no['q2dnull'],
+  				(($si_no['q2dnull'] / $submissions))),
+  			array("Q2e Contribución a la interacción de la Institución con su comunidad educativa.",
+  				$si_no['q2esi'],
+  				(($si_no['q2esi'] / $submissions)),
+  				$si_no['q2eno'],
+  				(($si_no['q2eno'] / $submissions)),
+  				$si_no['q2enull'],
+  				(($si_no['q2enull'] / $submissions))),
+  			array("Q2f Aportes a los planes y proyección en seguridad alimentaria y gestión de riesgo.",
+  				$si_no['q2fsi'],
+  				(($si_no['q2fsi'] / $submissions)),
+  				$si_no['q2fno'],
+  				(($si_no['q2fno'] / $submissions)),
+  				$si_no['q2fnull'],
+  				(($si_no['q2fnull'] / $submissions))),
+  			array("Q2g Programas de formación continuada",
+  				$si_no['q2gsi'],
+  				(($si_no['q2gsi'] / $submissions)),
+  				$si_no['q2gno'],
+  				(($si_no['q2gno'] / $submissions)),
+  				$si_no['q2gnull'],
+  				(($si_no['q2gnull'] / $submissions))),
+  			array("Q2h Oferta de servicios técnicos, consultas, asesorías, pruebas y ensayos",
+  				$si_no['q2hsi'],
+  				(($si_no['q2hsi'] / $submissions)),
+  				$si_no['q2hno'],
+  				(($si_no['q2hno'] / $submissions)),
+  				$si_no['q2hnull'],
+  				(($si_no['q2hnull'] / $submissions))),
+  			array("Q2i Ejecución de políticas públicas",
+  				$si_no['q2isi'],
+  				(($si_no['q2isi'] / $submissions)),
+  				$si_no['q2ino'],
+  				(($si_no['q2ino'] / $submissions)),
+  				$si_no['q2inull'],
+  				(($si_no['q2inull'] / $submissions)))),
+			array(
+				array("","FI","HI"),
+				array("Alta",
+					$si_no["q3alta"],
+					(($si_no['q3alta'] / $submissions))),
+				array("media",
+					$si_no["q3media"],
+					(($si_no['q3media'] / $submissions))),
+				array("baja",
+					$si_no["q3baja"],
+					(($si_no['q3baja'] / $submissions))),
+				array("ninguna",
+					$si_no["q3ninguna"],
+					(($si_no['q3ninguna'] / $submissions))
+					)
+				)
+);
+  	$dir = file_stream_wrapper_get_instance_by_uri('public://')->realpath();
+  	$path = "$dir/$filename";
+  	$options = array('format' => 'xls');
+  	//array_map('unlink', glob("/home/servilla/public_html/encuestas/sites/default/files/*.xls"));
+  	array_map('unlink', glob(variable_get('file_public_path', conf_path() . '/files').'*.xls'));
+  	$response = phpexcel_export($headers, $result, $path, $options);
+  	if ($response == PHPEXCEL_SUCCESS) {
+    	drupal_set_message("We analyzed it! Click the download link at the bottom of this page to download as an MS Excel report");
+  	}
+  	else {
+    	drupal_set_message("Oops ! An error occured !", 'error');
+  	}
+	  return $page;
+	}
+}

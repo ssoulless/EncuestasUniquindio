@@ -1,0 +1,764 @@
+header{
+	margin-bottom: 30px;
+}
+
+div.field.field-name-field-descripci-n.field-type-text-long.field-label-hidden.field-wrapper{
+        text-align:justify;
+}
+
+/*HACK FIXER*/
+/*TODO
+* make the webform conditionals work with table components
+*/
+fieldset.webform-component-fieldset.webform-component--test.form-wrapper {
+border-color: white;
+color: white;
+}
+
+:root
+{
+var-bordercolor: #B5B5B5;
+var-backgroundtitle: #808080;
+}
+#prueba{margin:50px auto; width:960px;}
+body
+{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    background: url("../images/bg.png") repeat scroll 0 0 #FFFFFF;
+    color: #484848;
+}
+/****************ESTILOS TEXTO*******************/
+h1{font-size: 12pt;word-wrap: break-word}
+h2{/*font-size: 10pt;*/ word-wrap: break-word}
+h3{font-size: 8pt; word-wrap: break-word}
+#page-title{
+    display: block;
+    float:left;
+    background:#CCCCCC;
+    width: 100%;
+    margin-top: -14px;
+    margin-bottom: 10px;
+}
+#page-title h3 { float:left; color:#484848; margin-top: 3px;}
+#page-title h1{  float:left; color:#484848; font-size: 11pt;}
+
+#component h1,#component h2,#component,#component h4,#component h5 { padding: 5px; margin: 0; }
+
+
+#cb_cb_comp_login .componentheading {
+    display: block;
+    float:left;
+    background:#808080;
+    width: 99.6%;
+    margin-bottom: 10px;
+    color:white;
+    font-size: 12pt;
+    padding:3px 0px 3px 3px;
+}
+.cb_template_default .componentheading {
+ display: block;
+    float:left;
+    background:#808080;
+    width: 99.6%;
+    margin-bottom: 10px;
+    color:white;
+    font-size: 12pt;
+    padding:3px 0px 3px 3px;
+}
+/***********************EDITOR ARTICULOS*******************************/
+.contentheading, .item-page h2 { /*height: 21px; color: #6699CC;*/ }
+.contentheading a, .item-page h2 a{ /*color: #828080 !important;*/  color:white;}
+/*********** contenedor página****************/
+#page-general
+{
+    width:960px; /*ancho total de la pagina*/
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    margin:10px auto; /*10px arriba y abajo, y auto a los lados, para los navegadores nuevos es suficiente para centrar la pagina*/
+    text-align:left; /*aqui alineamos todo de nuevo a la izquierda, pero dentro del contenedor*/
+    height: auto;
+    float:left;
+    box-shadow: 0 0 6px #B7B7B7;
+    padding:5px;
+
+}
+/*********** contenedor encabezado y barra  menú****************/
+#header
+{
+    height: 140px; display: block;
+    margin-bottom: 10px;
+    width: 960px;
+    float: right;
+    background: url("../images/banner.png")no-repeat;
+}
+/*********** encabezado ****************/
+#schriftzug
+{
+   /* font-size: 18px; */
+  /*   padding: 25px 0 5px 5px; */
+    height: 71px;
+    /*float:right;*/
+    margin:auto;
+    width:955px;
+	margin-left:50%;
+}
+/*********** barra menú ****************/
+#navigation
+{
+    height: 30px;
+    overflow: hidden;
+    width:950px;
+    float:right;
+    margin:5px;
+    background: url(../images/navigation.png)
+}
+#navigation ul { list-style-type: none; padding: 0px;  display: inline; }
+#navigation li { list-style-type: none;display: inline; float: right; }
+#navigation  a
+{
+    float: right; display: block; height: 30px; line-height: 30px;
+    text-decoration: none; text-transform: none; overflow: hidden;
+    padding: 0px 15px 0 15px; color: #484848; border-top: 1px solid #cccccc;
+    border-left:1px solid #cccccc; border-top-left-radius: 5px;
+    border-top-right-radius: 5px;border-right: 1px solid #cccccc;
+    background-color: #bfbfbf;
+	color:#484848;
+	font-weight: bold;
+	margin-right:5px!important;
+}
+#navigation li:hover{ text-decoration: underline; }
+#navigation a:hover{ text-decoration: underline;background-color: #a1d88b !important; color: #484848 !important;}/* Menú pestañas superior. Inicio, Preguntas Frecuentes, Equipo de Trabajo*/
+#navigation li.current{ list-style-type: none;display: inline; float: right; background-color: #ffffff; border-bottom: 1px solid #ffffff; }
+#navigation li.current a{ display: inline;  color: #000000; background-color: #ffffff; border-bottom: 1px solid #ffffff; border-right: 1px solid #cccccc; border-top-right-radius: 5px;}
+/*********** miga de pan****************/
+#pathway_out { display: block; margin:5px;float: right; width: 740px;
+background-color: #EFEDED;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    padding: 0 5px 5px;}
+#pathway {
+  /*  height: 24px; */
+    line-height: 24px;
+    float: right;
+    display: block;
+    margin: 0 5px 5px;
+    width: 717px;
+    background-color: #EFEDED;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    padding: 0 5px 5px;
+}
+#pathway a, #pathway span {font-size: 9pt;color: #484848; }
+.container { padding: 0px; margin: 0 auto; text-align: left; color:green; margin-top:50px;}
+
+#left_out { width: 215px !important; float: left;margin-left:5px;}
+
+.left_out5 {background-color: #33CC33 !important;}
+
+.menu h3 {background-color: #33CC33; }
+
+#left_topright { width: 200px; float: left;}
+
+/*----------------- Sidebars ------------------*/
+
+/*----Estilo para el título del menú del lado izquierdo (Título de cada Módulo)*/
+.sidebar h3{ background-color: #BFBFBF; color: #484848!important; height:30px !important; line-height: 30px; margin: 0 0 0 0 !important; padding: 0px 0px 0px 0px !important; text-align: center !important; font-weight: bold; font-size: 11pt; }
+
+.posicionIzquierda{
+	padding: 0 0 0 0;
+}
+
+.sidebar .module div div div, .sidebar .module_menu div div div, .sidebar .module_text div div div
+{ background-color: #EFEDED!important;
+  padding: 0 0 0 0 !important;
+  overflow: hidden;
+  border-bottom:1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-top:1px solid #cccccc;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius:5px;
+  border-bottom-left-radius: 5px;
+  margin-bottom:10px;
+}
+.sidebar .module div div div div, .sidebar .module_menu div div div div, .sidebar .module_text div div div div {padding: 0;	overflow: hidden; background: none;	margin: 0;}
+.sidebar ul {margin: 0;	padding: 0px;	list-style-type: none; background-color: #EFEDED!important;}
+.sidebar ul.menu li{padding: 0px;	margin-left: 5px!important;	list-style-type: none;}/*Estilo Menú Izquierdo*/
+.sidebar ul.menu ul { padding: 0 0 0 1px!important; margin: 0px 0px 0px 0px; }/*list-style-type: disc; */
+.sidebar ul.menu ul li{ padding: 0px; margin: 0px; }/*list-style-type: disc; */
+.sidebar ul.menu a  {border-bottom: 1px solid #ccc;padding: 7px 7px; display: block; text-decoration: none !important;color: #484848; }
+.sidebar ul.menu a:hover, .sidebar ul.menu li#current a, .sidebar ul.menu li#current li a { background-color: #BBDBEE; color: #fff; margin: 0px; }
+.sidebar ul.menu ul a { padding: 4px 5px; margin: 0px; background: none !important; border: none !important; }
+.sidebar ul.menu li a:hover, .sidebar ul.menu li li.current a:hover{ text-decoration: none; background-color: #a1d88b !important; color: #000000 !important;}
+.sidebar ul.menu li.active {border-left: solid 1px #cccccc!important; border-top: solid 1px #cccccc!important; border-right: solid 1px #ffffff!important; border-bottom: solid 1px #ffffff!important; margin: 4px 4px 4px 4px!important;}/* Background Menú*/
+.sidebar ul.menu li.current {background-color: #cccccc !important;}/* Background Menú*/
+.sidebar ul.menu li.active li {border: 0px!important;} /*No se coloca borde en subitem de menú */
+.sidebar ul.menu li.active a{border-bottom: solid 1px!important;}/* subrayado menú izquierdo*/
+.sidebar ul.menu li.active li a{border: none!important;}/*No se subraya el resto del menú*/
+
+
+.sidebar ul.menu li li.current a {background-color: #CCCCCC !important; margin:0px!important; border: none!important;}/*Color fijo submenú*/
+.sidebar ul.menu li.current ul li a { background: none !important; }
+.sidebar ul.menu li.current ul li a:hover { background: #a1d88b !important; margin-right: 4px!important; }/*Verde de menú/*
+
+
+
+
+/*----------------- Rechte Spalte ------------------*/
+#right_out { float: right; width: 727px; margin-right: 5px; border: 1px solid #cccccc; border-radius: 5px;}
+#right_out table,searchbox {max-width: 720px;}
+
+#suche { height: 15px; margin: 0; padding: 4px 5px; overflow: hidden; float: right; width: 150px; border: 1px solid #EEE; background-color: #FFFFFF; }
+#suche .inputbox { margin: 0; padding: 0; width: 150px; color: #999999; border: none; background: none; }
+#suche label, #navigation h3 { display: none; }
+
+/*----------------- Position 3 und 4 ------------------*/
+
+#box_content { display: block; padding: 0px; width: 100%; overflow: hidden; }
+#box_content h3 { height: 30px; line-height: 30px; text-align: left; color: #FFFFFF; margin: 0px 5px 10px 5px; /*font-size: 12px;*/ }
+#box_content ul, #box_content li, #content ul, #content li, #userbottom ul, #userbottom li {/* padding: 0px 0px 0px 5px; /*margin: 0px 10px;*/ }
+#top_module_1 { width: 100%; }
+#top_module_2 { width: 49%; }
+
+#box_content .module, #box_content .module_menu, #box_content .module_text { background: url(../images/user_tl.png) no-repeat; margin-bottom: 10px; }
+#box_content .module div, #box_content .module_menu div, #box_content .module_text div { background-image: url(../images/user_tr.png); background-position: right top; background-repeat: no-repeat}
+#box_content .module div div, #box_content .module_menu div div, #box_content .module_text div div{ background: url(../images/user_bl.png) bottom left no-repeat;}
+#box_content .module div div div,  #box_content .module_menu div div div, #box_content .module_text div div div{ padding: 3px 3px 0px 3px; padding-bottom: 7px !important; overflow: hidden; background: url(../images/user_br.png) bottom right no-repeat;}
+#box_content .module div div div div,  #box_content .module_menu div div div div, #box_content .module_text div div div div { padding: 0 3px; background: none;}
+.separator { width: 1%;	height: 100px;	float: left;}
+.topmodule_inside { background: url(../images/right_box.png) top right  no-repeat;	height: 130px; }
+
+#maincontent { width: 100%;	height: auto;	padding: 0;	margin: 0;	float: left; }
+#content_outright { padding: 0 10px 0 0;}
+#content_outnoright { }
+#content { padding: 5px;}
+/*#content a{ color:blue !important;}*/
+#component { }
+/*#content a, #box_content a, #userbottom a, #left_out a { color: #50504F;}*/
+#content a:hover { text-decoration: underline; color:green;}
+#content a:link{text-decoration: underline;}
+#right { float: right;	margin: 0; }
+a { text-decoration: none;}
+a:link{color:green;}
+a:visited{color:green;}
+a:hover { text-decoration: underline;}
+a.readon { border-left: 2px solid #6699FF;	padding: 2px 0 2px 5px;	margin: 3px 0 0 0;	float: left;}
+
+#bottom { background:#111111; border-top: 2px solid #666; float:left; margin: 0; text-align: center; width: 100%; }
+
+#bottom, #bottom span, #bottom td,  #bottom div, #bottom p, #bottom li, #footer span, #footer { color: #7F7F7F ;}
+#bottom a, #bottom span a, #bottom td a,  #bottom div a, #bottom p a, #bottom li a, #footer span a, #footer a{ color: #999 ;}
+
+#userbottom { margin: 0; padding: 10px 0 20px 0; overflow: hidden; }
+#userbottom h3, #userbottom th { font-weight: normal; padding: 15px 0 10px 0; color: #EEE; }
+#userbottom ul { margin: 0; padding: 0 0 0 15px;}
+#userbottom li { padding: 5px 0; }
+
+.user1, .user2, .user3, .user4 { float: left; overflow: hidden; }
+.user4 { width: 24%; }
+.user3 { width: 32%; }
+.user2 { width: 49%; }
+.user1 { width: 99%; }
+
+#footer
+{ display: block;
+  margin:5px;
+  float: right;
+  text-align: center;
+  width: 940px;
+  padding:5px;
+  border-top: #CCCCCC solid 1px;
+  background: url(../images/footer.png) no-repeat;
+  height: 43px;
+}
+#footer img{
+margin-top:15px!important;
+}
+#footer span {/* font-size: 90%;*/ }
+.sitetitle { float: left; padding: 0 0 0 10px; }
+.footer { float: right; padding: 0 10px 0 0; }
+
+.clearfloat, .clr { clear:both; height:0; /*font-size: 1px; */line-height: 0px; }
+
+/*------------------ ENDE Struktur ------------------*/
+
+/*------------------ Content Styles -----color: #FFFFFF; font-size: 17px; font-weight: normal;  padding: 5px 0px 5px 15px; text-align: left; margin: 0 0 20px 0; -------------*/
+
+
+img { border: none;padding: 0;margin: 0; }
+.highlight {background-color:#ccc;}
+.message { padding: 0px 10px; margin-bottom: 10px; text-align: center; }
+
+.contentpane, .contentpaneopen { width: 100%;
+}
+
+.contentdescription, .category-desc { padding: 10px 20px 20px 20px; }
+.item-separator { height: 10px;}
+
+.button,button { /*background: #EEEEEE; border: 1px solid #CCCCCC; border-radius: 5px; color: #666666;/*float:right; margin:3px 5px 5px 0px; padding: 4px 5px; */text-transform: uppercase; /*font-size: 8pt; font-family: Verdana, Arial, Helvetica, sans-serif; box-shadow: 0 0 3px #CCCCCC; float: right;
+margin-right: 53%;*/ }
+
+.sectiontableheader { background: #84A9CE; color: #FFFFFF; padding-left: 5px; height: 30px; font-size: 14px; }
+.sectiontableheader a { color: #FFFFFF !important; }
+.sectiontableentry1, .sectiontableentry2 { height: 30px; text-indent: 5px; }
+
+
+fieldset, fieldset .small { border: none !important; }
+
+form, fieldset { margin: 0; padding: 0; border:none;
+}
+
+
+/*incio sesion*/
+input.inputbox { padding: 4px 5px; width: 90%; margin: 5px 0px; }
+input#modlgn_remember, input#modlgn-remember { margin: 0; padding: 0; width: auto !important; }
+#content input { padding: 5px 6px; width: auto; color: #666; border: 1px solid #CCC; }
+#content label { width: 20%; float: left; position:relative; top:35%;}
+#content label#jform_spacer-lbl { float: none; width: auto; }
+
+fieldset .login{border: solid 1px green;}
+
+.display-limit { padding: 0 0 10px 0; }
+.display-limit select { color: #666; border: 1px solid #CCC; background: #FFF; padding: 3px 4px; }
+
+/* Article */
+ul.actions{ float: right; text-align:right; padding: 0; margin:0; width:100%; margin-bottom: 10px!important; border-bottom: 1px dotted #B5B5B5;}
+ul.actions li, ul.actions {display:inline; }
+ul.actions a {text-decoration:none;}
+.actions li { float: left; display: inline; padding: 4px 5px; }
+ul.actions li, ul.actions li img { padding: 0 !important; /*margin-bottom:5px!important;*/ border: none; }
+
+fieldset dt { padding: 3px 0 5px 0 ;  margin: 0;  }
+fieldset dd { padding: 0 ;  margin: 0;  }
+.item-page, .item, .leading-0 { 	position: relative; }
+
+.article-info { margin:10px 0 10px 0px; font-size:0.9em;}
+.article-info-term{ display:none}
+.article-info dt { 	display: none; margin: 0; padding: 0; }
+.article-info dd { float: left; font-size: 90%; padding: 0 9px; margin: 0; border-right: 1px solid #CCC; color: #666; }
+
+dt.category-name, dt.create, dt.modified, dt.createdby{   float:left; padding-right:5px;}
+.archive .article-info dd, .article-info dd {  margin:2px 0 0px 0; line-height:1.2em; }
+dd.createdby {}
+.article-info dd span { text-transform:none; display:inline; padding:0 5px 0 0px; margin:0 10px 0 0px;}
+.date { font-weight: bold; margin-top: 10px; }
+.small { color: #999999; }
+.smalldark { color: #999999; }
+.createdate { color: #999999; }
+.modifydate { font-size: 12px; color: #999999; }
+
+/* pagenav */
+#component ul.pagenav { list-style-type:none;padding:0;margin:10px 0 0 0;overflow:hidden; }
+ul.pagenav li {display:inline;padding:1px;margin:0;position:relative;}
+#component ul.pagenav li {line-height:2em}
+ul.pagenav li a{ display:inline; background: #EBEBED; padding:2px 4px; text-decoration:none;}
+ul.pagenav li a:hover{text-decoration: none;background-color: #CCCCCC;}
+ul.pagenav li.pagenav-prev {float:left}
+ul.pagenav li.pagenav-next {float:right}
+
+/* ++++++++++++++  pagination  ++++++++++++++ */
+.pagination { margin:5px 0px ; padding:5px 0px 5px 5px; }
+.pagination ul {list-style-type:none; margin:0; padding:0; text-align:left; }
+.pagination li { display:inline; padding:2px 5px; text-align:left; border:solid 1px #eee; margin:0 2px; }
+.pagination li.pagination-start, .pagination li.pagination-next, .pagination li.pagination-end, .pagination li.pagination-prev {border:0;}
+.pagination li.pagination-start, .pagination li.pagination-start  span {padding:0;}
+.pagenav {padding:2px}
+.pagination .counter {	text-align: center; padding: 0 0 5px 0; }
+p.counter{ font-weight:bold; padding: 0 0 10px 0; text-align:center;}
+/*.pagination { font-size: 85%; padding: 10px 0; }
+.pagination .counter {	text-align: center; padding: 0 0 5px 0; }
+.pagination ul { padding: 0; text-align: center; line-height: 1; }
+.pagination ul li { display: inline; border: 1px solid #CCC; padding: 3px 7px !important; margin: 0 3px !important; } */
+
+/* ++++++++++++++  category  ++++++++++++++ */
+.category { width: 100%; margin-bottom: 10px; }
+.category thead {padding: 3px 5px;background-color: #666;color: #FFFFFF;font-size: 16px;color: #FFFFFF; text-indent: 5px;height: 26px;line-height: 26px;}
+.category thead a {color: #FFFFFF !important; }
+.cat-list-row0, .cat-list-row1 {background: url(../images/sectiontableentry.jpg) repeat-x bottom #FFFFFF;font-size: 12px;text-indent: 5px;}
+.cat-list-row0 td, .cat-list-row1 td { padding: 5px;}
+.cat-children h3 {/*font-size: 14px;*/ font-weight:normal;}
+
+/* ++++++++++++++  readmore  ++++++++++++++ */
+.readmore {margin: 5px 0 0 0;}
+.readmore a {background-color: #EBEBED;color: #8B8B8B;padding: 1px 3px; }
+.readmore a:hover {text-decoration: none;background-color: #CCCCCC;}
+
+/* ++++++++++++++  tooltip  ++++++++++++++ */
+.tip { border:solid 1px #333;background:#ffffcc; font-size:0.8em;text-align:left;  padding:3px; max-width:400px}
+.tip-title { font-weight:bold; }
+.parent a{/* background: url(../images/arrow.png) no-repeat scroll 5px 7px transparent; */padding-left: 10px;}
+table{ widht:740px;}
+.labelclass{
+    width: 100px;
+    display: inline-block;
+}
+
+#divFormLogin{
+   margin:auto;
+   width: 350px;
+   display:block;
+ /*box-shadow: 0 0 6px #B7B7B7;
+   border:1px solid #cccccc;
+   background: green;*/
+   padding:10px;
+   border-radius: 5px;
+}
+
+
+#login-form{
+    display: block;
+  /* width: 350px;*/
+    margin: 10px auto !important;
+}
+/*Modifica fielset de inicio de sesión*/
+fieldset.userdata
+{
+    width:350px;
+    float:left;
+	border: none !important;
+    /*border: 1px solid #cccccc !important;
+    border-radius: 5px;*/
+}
+.cbLoginButtonSpan
+{
+    float:right;
+    margin: 40px auto 5px auto;
+}
+.cbLoginLinksList{
+   float:left;
+   margin-left: 30px;
+}
+.cbLostLoginLi
+{
+    float:right;
+    margin-right: 30px;
+}
+#group1{width:260px; float:left;}
+#cbIconsTop{margin-bottom:5px;}
+.text-description{word-wrap: break-word; display:block;}
+#mod_login_password {float: right; margin-right: 8px}
+.ulForget{float:left;}
+.register{ margin-top:0px !important; margin-bottom: 0px !important;}
+#form-login-username, #form-login-password, #form-login-remember {margin-left: 5px;}
+#pruebaregistro{border: 1px solid #000000; width: 700px;}
+
+/*Estilos Resultados SaberPro*/
+#SaberProResultados{
+    /*font-size: 9pt !important;*/
+}
+
+#SaberProResultados table td{
+    border: solid 1px #cccccc!important;
+	border-radius: 5px;
+	box-shadow: 0 0 6px #B7B7B7;
+	font-size:8pt;
+
+}
+
+
+	
+#SaberProResultadosProgramas table{
+		width:90% !important;
+			}
+/*Estilo tablas de resultados Programa SaberPro*/
+#SaberProResultadosProgramas table{
+    border: solid 1px #cccccc!important;
+	border-collapse: collapse!important;
+	text-align: center;
+	padding:5px!important;
+	}
+	/*Estilos para tablas agenda*/
+ 
+#agenda table{
+    border: solid 1px #cccccc!important;
+	border-collapse: collapse!important;
+	text-align: center;
+	padding:4px!important;
+	}
+	
+	#agenda td{
+	 border: solid 1px #CCCCCC !important;
+	 padding: 4px;}
+
+#SaberProResultadosProgramas table{
+		width:80% !important;
+			}
+/*Estilos para las primeras dos filas de las tablas de resultados SaberPro*/
+td.fila1 {
+background-color: #e6e6e6;
+font-size: 11pt;
+font-weight:bold;
+}
+tr.fila2 {
+background: #f7f7f7 !important;
+}
+tr.fila3{
+background:#bdbdbd !important;
+}
+/*Estilo para tablas dinámicas Facultades y programas*/
+#repository_table td {
+    border: solid 1px #CCCCCC !important;
+	padding: 4px;
+}
+
+td.descripcion {
+    text-align: left;
+}
+#repository_table{
+	border-collapse: collapse !important;
+	width: 576px;
+	border-radius: 5px!important;
+}
+
+/*Estilo para tabla dinámica estado actual */
+#tablaEstadoActualdinamicadinamica td {
+	/*width: 5%;*/
+	border: 0px !important;
+	text-align: left ;
+	padding:0px!important;
+		
+}
+td.derecha{
+text-align: right !important;}
+/*Estilo tabla estado actual*/
+/*Estilo del artículo estado actual*/
+#tablaEstadoActual td {
+	/*width: 98%;*/
+	border: none !important;
+	/*text-align: left !important;*/
+}
+/*Estilos filas del artículo de estado actual*/
+td.fila5{
+text-align: right !important;}
+td.fila6{
+text-align: left !important;}
+td.fila7{
+text-align: right !important;}
+td.fila8{
+text-align: left !important;}
+td.fila9{
+text-align: right !important;}
+td.fila10{
+text-align: left !important;}
+td.fila11{
+text-align: right !important;}
+td.fila12{
+text-align: left !important;}
+
+
+/*ESTILOS TABLA REPOSITORIO*/
+
+#repository_table table, td{
+	border: solid 2px #cococo !important;
+	text-align: center;
+}
+
+#repository_table .icon{
+    width: 40px;
+}
+
+td.icon{
+    width:20%!important;
+}
+#repository_table .descripcion{
+    width: 300px;
+}
+#remositoryfilelisting{
+    margin-top:-2px;
+    clear: both;
+}
+#folder_information{
+    width: 100%;
+}
+#folder_information .title{
+    margin-left: 70px;
+    margin-bottom: -15px;
+    margin-right: 72px;
+}
+#folder_information .col1{
+    margin-left: 70px;
+    float:left;
+}
+#folder_information .col2{
+    /*margin-left: 60px;*/
+    float:left;
+}
+#folder_information .col3{
+    margin-right: 72px;
+    float:left;
+}
+#folder_information div {
+border: 2px solid #424242;
+padding: 0px 20px;
+margin-top: 13px;
+background-color: #CECECE;
+text-align: center;
+}
+#folder_information .title p{
+    margin: 4px 0px 6px 0;
+}
+.tabla_title{
+    background-color: #E6E6E6;
+    color: #484848;
+}
+.tabla_subtitle{
+    background-color:  #F7F7F7;
+}
+.tabla_header{
+    background-color: #fafafa;
+}
+.align-center{
+    text-align: left;
+}
+/*ESTILOS PARA FORMULARIO CREACIÓN DE CONTENEDORES*/
+.hidden{
+    display: none;
+}
+
+.search {
+float:right;
+
+}
+
+#top_search{
+    
+    float: right;
+    margin-right: 26.5%!important;
+}
+
+#top_search form{
+    border: none !important;
+}
+
+#top_search > form > div > label{
+    display: none;
+}
+
+#searchForm .word{
+    display:none;
+}
+
+#searchForm .phrases{
+    display: none;
+}
+#searchForm .only{
+    display: none;
+}
+#searchForm .searchintro{
+    padding-left: 8px; 
+}
+#searchForm .form-limit{
+    padding-left:12px;
+}
+#toolbar{
+   position:fixed;
+   top:0;
+   left:0;
+   width:100%;
+   height:38px!important;
+   background-color:#484848;
+   -moz-box-shadow: 1px 4px 5px #888;
+-webkit-box-shadow: 1px 4px 5px #888;
+box-shadow: 1px 4px 5px #888;
+z-index:1000;
+ }
+.login_top{
+    float: right;
+    padding: 0;
+    /*margin: -4px 5px 0 0;*/
+    margin-top: 8px;
+    margin-right: 22px;
+    
+
+}
+.login_top a{
+    /*padding: 6px;*/
+    padding: 3px 20px 8px 20px;
+    background-color: green;
+    color: white;
+    border-radius:5px;
+   /* height:25px;
+    margin-right:5px;
+    font-size: 12px;
+    background-image: initial;*/
+        
+}
+
+.login_top .menu{
+    margin:0;
+    padding:0;
+}
+#mod-search-searchword {
+border-radius: 4px;
+font-size: 12px;
+}
+.login_top a:hover{
+    text-decoration: none;
+}
+
+#toolbar > div.login_top > ul{
+    list-style: none;
+}
+dt.error{
+    color:#FFF;
+    display: none;
+}
+.error ul{
+    list-style-type: none;
+}
+.error.message{
+    color:red;
+}
+i.bienvenido {
+color: white !important;
+}
+
+/**/
+#h2privada{
+ padding:5px;
+ margin:0px;
+ color:green;
+}
+
+#tableprivada{
+
+ width:100% !important;
+ 
+}
+#carpetas{
+ width:100%!important;
+ border:none;
+ background-color:rgb(238,238,238);
+ padding: 3px;
+ 
+}
+
+
+
+#tdprivada{
+ text-align:left;
+ border:0px ;
+}
+#vinculoprivada{
+ text-decoration:underline;
+ color: green;
+}
+#spanfolder{
+ float:left;
+ margin-top:-14px;
+ margin-right:5px;
+}
+#imgfolder{
+ border-width:0px;
+ padding:2px;
+ margin-top:10px; 
+}
+
+#banner-top{
+  background-image: url(../images/banner.png);
+  width: 100%;
+  height: 126px;
+}

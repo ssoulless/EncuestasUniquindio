@@ -1,0 +1,2 @@
+[14-Sep-2014 23:28:18 America/Bogota] PHP Fatal error:  Call to undefined function libraries_get_libraries() in /home/servilla/public_html/encuestas/sites/all/modules/chelsea_analysis/chelsea_analysis.module on line 45
+[15-Sep-2014 00:09:08 America/Bogota] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/servilla/public_html/encuestas/sites/all/modules/custom/login_uniquindio/login_uniquindio.module on line 11

@@ -1,0 +1,158 @@
+<?php
+
+/**
+ * @file
+ * Table element for webform
+ */
+
+/**
+ * Implements hook_webform_component_info().
+ */
+function webform_table_element_webform_component_info() {
+  $components = array();
+  foreach (array('table' => t('Table'), 'table_row' => t('Table Row')) as $type => $title) {
+    $components[$type] = array(
+      'label' => $title,
+      'description' => t('Turns all elements within this element into a %table_title.', array('%table_title' => strtolower($title))),
+      'features' => array(
+        'csv' => FALSE,
+        'default_value' => FALSE,
+        'required' => FALSE,
+        'conditional' => FALSE,
+        'group' => TRUE,
+        'title_inline' => FALSE,
+        'wrapper_classes' => FALSE,
+      ),
+    );
+  }
+  return $components;
+}
+
+/**
+ * Implements _webform_defaults_component().
+ */
+function _webform_table_element_settings() {
+  return array(
+    'name' => '',
+    'form_key' => NULL,
+    'pid' => 0,
+    'weight' => 0,
+    'extra' => array(
+      'title_display' => 0,
+      'collapsible' => 0,
+      'collapsed' => 0,
+      'description' => '',
+      'private' => FALSE,
+    ),
+  );
+}
+
+function _webform_defaults_table() {
+  return _webform_table_element_settings();
+}
+
+function _webform_defaults_table_row() {
+  return _webform_table_element_settings();
+}
+
+/**
+ * Implements _webform_render_compnent().
+ *
+ * @param array $component
+ *   The component to render.
+ * @param mixed $value
+ *   The value of this component.
+ * @param string $filter
+ *   The filter to apply to the display.
+ *
+ * @return string
+ *   The html markup of the table.
+ */
+function _webform_render_table($component, $value = NULL, $filter = TRUE) {
+  $node = isset($component['nid']) ? node_load($component['nid']) : NULL;
+  return array(
+    '#type' => 'item',
+    '#title' => $filter ? _webform_filter_xss($component['name']) : $component['name'],
+    '#weight' => $component['weight'],
+    '#description' => $filter ? _webform_filter_descriptions($component['extra']['description'], $node) : $component['extra']['description'],
+    '#theme' => 'webform_table_element_table'
+  );
+}
+
+function _webform_display_table($component, $value = NULL, $format = 'html') {
+  return _webform_render_table($component, $value, $format);
+}
+
+/**
+ * Implements _webform_render_compnent().
+ *
+ * @param array $component
+ *   The component to render.
+ * @param mixed $value
+ *   The value of this component.
+ * @param string $filter
+ *   The filter to apply to the display.
+ *
+ * @return string
+ *   The html markup of the table.
+ */
+function _webform_render_table_row($component, $value = NULL, $filter = TRUE) {
+  return array(
+    '#type' => 'item',
+    '#title' => $filter ? _webform_filter_xss($component['name']) : $component['name'],
+  );
+}
+
+function _webform_display_table_row($component, $value = NULL, $format = 'html') {
+  return _webform_render_table_row($component, $value, $format);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function webform_table_element_theme() {
+  return array(
+    'webform_table_element_table' => array(
+      'render element' => 'element',
+      'arguments' => array('element' => NULL),
+    ),
+  );
+}
+
+/**
+ * Theme a table component as a table.
+ *
+ * @param array $variables
+ *   The theme variables.
+ *
+ * @return string
+ *   The markup for this component.
+ */
+function theme_webform_table_element_table($variables) {
+  $element = $variables['element'];
+  $header = array('');
+  $rows = array();
+  foreach (element_children($element) as $child) {
+    $child = $element[$child];
+    $row = array();
+    $row[] = $child['#title'];
+    foreach (element_children($child) as $col) {
+      $col = $child[$col];
+      if (empty($rows)) {
+        $header[] = $col['#title'];
+      }
+      $col['#title'] = '';
+      $row[] = drupal_render($col);
+    }
+    $rows[] = $row;
+  }
+
+  // Returned the themed fieldset.
+  return theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+    'attributes' => array(
+      'class' => array(str_replace('_', '-', $element['#webform_component']['form_key']))
+    )
+  ));
+}

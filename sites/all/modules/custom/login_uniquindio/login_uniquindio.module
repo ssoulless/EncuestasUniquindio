@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function login_uniquindio_form_user_register_form_alter(&$form, &$form_state, $form_id) {
+    $form['account']['pass']['#type'] = 'password';
+    $form['account']['pass']['#title'] = t('Confirme No. de cédula');
+    $form['account']['name']['#title'] = t('No. de cedula');
+    $form['account']['name']['#description'] = t('Ingrese su número de cédula SIN espacios y SOLO números');
+    $form['account']['pass']['#description'] = t('Confirme su número de cédula');
+    //define validation function
+  	$form['#validate'][] = 'my_user_register_validate';
+    //dpm($form);
+}
+
+function my_user_register_validate($form, &$form_state) {
+
+  $output['error'] = FALSE;
+  $username = $form_state['input']['name'];
+  $password = $form_state['input']['pass'];
+  
+  /*if (strlen($username) < 5 || strlen($username) > 15) {
+    $output['error'] = TRUE;
+    $output['msg'] = t('The username has to be between 5 and 15 characters long. ');
+  }*/
+  if (strpos($username,' ') > 0 || strpos($username,'.') > 0 || strpos($username,'-') > 0 || strpos($username,'_') > 0 || strpos($username, "'") !== FALSE || preg_match('/[A-Za-z]/', $username)){
+    $output['error'] = TRUE;
+    $output['msg'] = t('La cédula no puede contener Letras Espacios  . - _ ' . chr(39)  );
+  }
+  if($username != $password){
+  	 $output['error'] = TRUE;
+  	 $output['msg'] = t('Error al confirmar la cédula, verifique nuevamente.');
+  }
+//display username errors
+  if ($output['error']){
+    //drupal_set_message( $output['msg'], 'error');
+    form_set_error('name', $output['msg']);
+  }
+}
+
+/**
+* Implements Hook_form_FORM_ID_alter().
+*/
+function login_uniquindio_form_user_login_alter(&$form, &$form_state, $form_id) {
+
+	$form['name']['#title'] = t("No. de cédula");
+	$form['pass']['#title'] = t("Confirme No. cédula");
+	$form['actions']['submit']['#value'] = t("Continuar formulario");
+	//dpm($form);
+}
+
+?>

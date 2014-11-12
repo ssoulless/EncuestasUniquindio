@@ -1,0 +1,12 @@
+name = Webform Add Existing
+description = Add Existing Component in webform
+core = 7.x
+package = Webform
+dependencies[] = webform
+
+; Information added by drupal.org packaging script on 2013-10-26
+version = "7.x-2.0+0-dev"
+core = "7.x"
+project = "webform_add_existing"
+datestamp = "1382755481"
+

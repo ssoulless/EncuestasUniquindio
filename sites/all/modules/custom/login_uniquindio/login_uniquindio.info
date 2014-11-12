@@ -1,0 +1,4 @@
+name = Login Uniquindío
+description = Provides custom formatters for login to surveys
+core = 7.x
+package = custom
