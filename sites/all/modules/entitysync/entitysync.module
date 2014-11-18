@@ -1,0 +1,52 @@
+<?php
+/**
+ * @file
+ * Entity Sync primary module file.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function entitysync_menu() {
+  $items['entitysync'] = array(
+    'page callback' => 'entitysync_sync_callback',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'file' => 'menu/entitysync-callback.inc',
+  );
+  $items['admin/config/system/entitysync'] = array(
+    'title' => 'Entity synchronization settings',
+    'description' => 'Configure settings for Entity Sync.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('entitysync_admin_form'),
+    'access arguments' => array('administer entitysync'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'menu/entitysync-admin-ui.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function entitysync_permission() {
+  return array(
+    'administer entitysync' => array(
+      'title' => t('Configure Entity Sync'),
+      'description' => t('Configure Entity Sync Rules and settings.'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_cron().
+ */
+function entitysync_cron() {
+
+  require_once drupal_get_path('module', 'entitysync') . '/entitysync.inc';
+
+  $queue = new EntitySyncQueue();
+  $queue->processQueue();
+
+}

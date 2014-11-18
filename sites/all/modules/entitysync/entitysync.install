@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function entitysync_schema() {
+  $schema = array();
+
+  $schema['entitysync_packet_queue'] = array(
+    'description' => 'Failed packet queue for Entity Sync',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Queue ID',
+      ),
+      'endpoint' => array(
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+        'description' => 'Endpoint URL',
+      ),
+      'queue_identifier' => array(
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+        'description' => 'Entity type',
+      ),
+      'errors' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'packet' => array(
+        'type' => 'blob',
+        'not null' => TRUE,
+        'description' => 'Packet data',
+      ),
+    ),
+    'primary key' => array('id'),
+    'indexes' => array('queue' => array('queue_identifier'), 'endpoint' => array('endpoint')),
+  );
+
+  return $schema;
+}
+
+/**
+ * Add error tracking to queue
+ */
+function entitysync_update_7000(&$d) {
+  $schema = entitysync_schema();
+  db_add_field(
+    'entitysync_packet_queue',
+    'errors',
+    $schema['entitysync_packet_queue']['fields']['errors']
+  );
+}

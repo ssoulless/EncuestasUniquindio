@@ -1,0 +1,16 @@
+name = "Entity Sync"
+description = "Synchronize full entities or selected aspects with different Drupal installations."
+package = "Rules"
+core = 7.x
+
+dependencies[] = rules
+
+files[] = includes/entitysync.packet.inc
+files[] = includes/entitysync.queue.inc
+
+; Information added by drupal.org packaging script on 2012-05-22
+version = "7.x-1.0-alpha6"
+core = "7.x"
+project = "entitysync"
+datestamp = "1337675456"
+
