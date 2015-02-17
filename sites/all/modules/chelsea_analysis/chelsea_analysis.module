@@ -556,8 +556,12 @@ function chelsea_analysis_page_dos() {
 	  $result = chelsea_analysis_contents(2);
 	  $submissions = count($result['submissions']);
 	  $si_no = array();
-	  dpm($submissions);
 	  dpm($result['submitted_data']);
+	  $numFila = 0;
+	  $numCol = 0;
+	  $prueba = $result['submitted_data'];
+	  $filaPrueba = 0;
+	  $colPrueba = 0;
 	  foreach ($result['submitted_data'] as $submission) {
 	    foreach($submission as $rows){
 	    	// pregunta 0--------------------------------------------------------------------------------
@@ -634,13 +638,23 @@ function chelsea_analysis_page_dos() {
 			}
 
 			if($rows['data'] == '5'){ 
-			  	if($rows['cid'] == 38) { ++$si_no['q3a5'];}
-			  	if($rows['cid'] == 40) {++$si_no['q3b5'];}
-			  	if($rows['cid'] == 42) {++$si_no['q3c5'];}
-			  	if($rows['cid'] == 44) {++$si_no['q3d5'];}
-			  	if($rows['cid'] == 46) {++$si_no['q3e5'];}
-			  	if($rows['cid'] == 48) {++$si_no['q3f5'];}
-			  	if($rows['cid'] == 50) {++$si_no['q3g5'];}
+			  	if($rows['cid'] == 38) { ++$si_no['q4a5'];}
+			  	if($rows['cid'] == 40) {++$si_no['q4b5'];}
+			  	if($rows['cid'] == 42) {++$si_no['q4c5'];}
+			  	if($rows['cid'] == 44) {++$si_no['q4d5'];}
+			  	if($rows['cid'] == 46) {++$si_no['q4e5'];}
+			  	if($rows['cid'] == 48) {++$si_no['q4f5'];}
+			  	if($rows['cid'] == 50) {++$si_no['q4g5'];}
+			}
+
+			if(empty($rows['data']) || is_null($rows['data'])){
+				if($rows['cid'] == 38) { ++$si_no['q4aninguno'];}
+			  	if($rows['cid'] == 40) {++$si_no['q4bninguno'];}
+			  	if($rows['cid'] == 42) {++$si_no['q4cninguno'];}
+			  	if($rows['cid'] == 44) {++$si_no['q4dninguno'];}
+			  	if($rows['cid'] == 46) {++$si_no['q4eninguno'];}
+			  	if($rows['cid'] == 48) {++$si_no['q4fninguno'];}
+			  	if($rows['cid'] == 50) {++$si_no['q4gninguno'];}
 			}
 			// pregunta 5 -----------------------------------------------------------------------------
 
@@ -703,6 +717,18 @@ function chelsea_analysis_page_dos() {
 			  	if($rows['cid'] == 67) {++$si_no['q5h5'];}
 			  	if($rows['cid'] == 69) {++$si_no['q5i5'];}
 			}
+
+			if(empty($rows['data']) || is_null($rows['data'])){
+				if($rows['cid'] == 53) { ++$si_no['q5aninguno'];}
+			  	if($rows['cid'] == 55) {++$si_no['q5bninguno'];}
+			  	if($rows['cid'] == 57) {++$si_no['q5cninguno'];}
+			  	if($rows['cid'] == 59) {++$si_no['q5dninguno'];}
+			  	if($rows['cid'] == 61) {++$si_no['q5eninguno'];}
+			  	if($rows['cid'] == 63) {++$si_no['q5fninguno'];}
+			  	if($rows['cid'] == 65) {++$si_no['q5gninguno'];}
+			  	if($rows['cid'] == 67) {++$si_no['q5hninguno'];}
+			  	if($rows['cid'] == 69) {++$si_no['q5ininguno'];}
+			}
 			// pregunta 6 -----------------------------------------------------------------------------
 			if($rows['cid'] == 70){
 	    		if($rows['data'] == 'si'){ ++$si_no['q6si']; }
@@ -728,8 +754,73 @@ function chelsea_analysis_page_dos() {
 	    		if($rows['no'] == 10 && $rows['data'] == 'actividades_investigacion'){ ++$si_no['q8kchecked']; }
 	    		if($rows['no'] == 11 && $rows['data'] == 'eleccion_consejo_superior'){ ++$si_no['q8lchecked']; }
 	    	}
+	    	// pregunta 9 ----------------------------------------------------------------------------
+	    	if($rows['cid'] == 77){
+		    		$fila = $result['submitted_data'][$numFila][$numCol+2];
+		    		if($rows['data'] == 'si'){
+		    			++$si_no['q9asi'];
+		    			if($fila['data'] == 'nacional'){ ++$si_no['q9asinacional']; }
+		    			if($fila['data'] == 'internacional'){ ++$si_no['q9asiinternacional']; }
+		    		} 
+		    		if($rows['data'] == 'no'){ ++$si_no['q9ano']; }
+		    }
+		    if($rows['cid'] == 81){
+		    		$fila = $result['submitted_data'][$numFila][$numCol+2];
+		    		if($rows['data'] == 'si'){
+		    			++$si_no['q9bsi'];
+		    			if($fila['data'] == 'nacional'){ ++$si_no['q9bsinacional']; }
+		    			if($fila['data'] == 'internacional'){ ++$si_no['q9bsiinternacional']; }
+		    		} 
+		    		if($rows['data'] == 'no'){ ++$si_no['q9bno']; }
+		    	}
+		    	if($rows['cid'] == 97){
+		    		$fila = $result['submitted_data'][$numFila][$numCol+2];
+		    		if($rows['data'] == 'si'){
+		    			++$si_no['q9csi'];
+		    			if($fila['data'] == 'nacional'){ ++$si_no['q9csinacional']; }
+		    			if($fila['data'] == 'internacional'){ ++$si_no['q9csiinternacional']; }
+		    		} 
+		    		if($rows['data'] == 'no'){ ++$si_no['q9cno']; }
+		    	}
+		    	if($rows['cid'] == 85){
+		    		$fila = $result['submitted_data'][$numFila][$numCol+2];
+		    		if($rows['data'] == 'si'){
+		    			++$si_no['q9dsi'];
+		    			if($fila['data'] == 'nacional'){ ++$si_no['q9dsinacional']; }
+		    			if($fila['data'] == 'internacional'){ ++$si_no['q9dsiinternacional']; }
+		    		} 
+		    		if($rows['data'] == 'no'){ ++$si_no['q9dno']; }
+		    		
+		    	}
+		    	if($rows['cid'] == 93){
+		    		$fila = $result['submitted_data'][$numFila][$numCol+2];
+		    		if($rows['data'] == 'si'){
+		    			++$si_no['q9esi'];
+		    			if($fila['data'] == 'nacional'){ ++$si_no['q9esinacional']; }
+		    			if($fila['data'] == 'internacional'){ ++$si_no['q9esiinternacional']; }
+		    		} 
+		    		if($rows['data'] == 'no'){ ++$si_no['q9eno']; }
+		    	}
+		    	if($rows['cid'] == 89){
+		    		$fila = $result['submitted_data'][$numFila][$numCol+2];
+		    		if($rows['data'] == 'si'){
+		    			++$si_no['q9fsi'];
+		    			if($fila['data'] == 'nacional'){ ++$si_no['q9fsinacional']; }
+		    			if($fila['data'] == 'internacional'){ ++$si_no['q9fsiinternacional']; }
+		    		} 
+		    		if($rows['data'] == 'no'){ ++$si_no['q9fno']; }
+		    	}
+
+	    	++$numCol;
 		}
+		++$numFila;
 	  }
+	$fila = $result['submitted_data'][$filaPrueba][$colPrueba];
+	$fila2 = $result['submitted_data'][$filaPrueba][$colPrueba+2];
+	//dpm($numFila);
+	//dpm($numCol);
+	dpm($fila);
+	dpm($fila2);
 	$rand = 'test';
   	$filename = $rand.'.xls';
   	$page = '<div><a href="/sites/default/files/'.$filename.'">Descargar reporte de excel para la encuesta de egresados</a></div>';
@@ -846,8 +937,8 @@ array(
   			array(),array(),array(),
 
   			array("Q4 CALIFIQUE EN LA ESCALA DE 1 A 5, (SIENDO 1= DEFICIENTE Y 5 = SUFICIENTE) LA FORMACIÓN RECIBIDA EN LOS SIGUIENTES CAMPOS","ANÁLISIS PARA CADA RESPUESTA","","","","","","","",""),
-			array("","1","","2","","3","","4","","5"), // cabeceras de la pregunta 4
-			array("","FI","HI","FI","HI","FI","HI","FI","HI","FI","HI"), 
+			array("","1","","2","","3","","4","","5","","NINGUNO"), // cabeceras de la pregunta 4
+			array("","FI","HI","FI","HI","FI","HI","FI","HI","FI","HI","FI", "HI"), 
 				array("Q4a Ciencias humanas",
 					$si_no['q4a1'], // FI de q4a1
 					($si_no['q4a1'] / $submissions), // HI de q4a1
@@ -859,6 +950,8 @@ array(
 					($si_no['q4a4'] / $submissions),
 					$si_no['q4a5'],
 					($si_no['q4a5'] / $submissions),
+					$si_no['q4aninguno'],
+					($si_no['q4aninguno'] / $submissions),
 					),
 				array("Q4b Desarrollo técnico y tecnológico",
 					$si_no['q4b1'], // FI de q4b1
@@ -871,6 +964,8 @@ array(
 					($si_no['q4b4'] / $submissions),
 					$si_no['q4b5'],
 					($si_no['q4b5'] / $submissions),
+					$si_no['q4bninguno'],
+					($si_no['q4bninguno'] / $submissions),
 					),
 				array("Q4c Formación bioética",
 					$si_no['q4c1'], // FI de q4c1
@@ -883,6 +978,8 @@ array(
 					($si_no['q4c4'] / $submissions),
 					$si_no['q4c5'],
 					($si_no['q4c5'] / $submissions),
+					$si_no['q4cninguno'],
+					($si_no['q4cninguno'] / $submissions),
 					),
 				array("Q4d Formación en investigación",
 					$si_no['q4d1'], // FI de q4d1
@@ -895,6 +992,8 @@ array(
 					($si_no['q4d4'] / $submissions),
 					$si_no['q4d5'],
 					($si_no['q4d5'] / $submissions),
+					$si_no['q4dninguno'],
+					($si_no['q4dninguno'] / $submissions),
 					),
 				array("Q4e Formación filosófica",
 					$si_no['q4e1'], // FI de q4e1
@@ -907,6 +1006,8 @@ array(
 					($si_no['q4e4'] / $submissions),
 					$si_no['q4e5'],
 					($si_no['q4e5'] / $submissions),
+					$si_no['q4eninguno'],
+					($si_no['q4eninguno'] / $submissions),
 					),
 				array("Q4f Gestión de recursos y administración",
 					$si_no['q4f1'], // FI de q4f1
@@ -919,6 +1020,8 @@ array(
 					($si_no['q4f4'] / $submissions),
 					$si_no['q4f5'],
 					($si_no['q4f5'] / $submissions),
+					$si_no['q4fninguno'],
+					($si_no['q4fninguno'] / $submissions),
 					),
 				array("Q4g Innovación",
 					$si_no['q4g1'], // FI de q4g1
@@ -931,12 +1034,14 @@ array(
 					($si_no['q4g4'] / $submissions),
 					$si_no['q4g5'],
 					($si_no['q4g5'] / $submissions),
+					$si_no['q4gninguno'],
+					($si_no['q4gninguno'] / $submissions),
 					),
 				array(), array(), array(),
 
 			array("Q5 CALIFIQUE DE 1 A 5 (SIENDO 1= DEFICIENTE Y 5 = SUFICIENTE) LA FORMACIÓN RECIBIDA A TRAVÉS DE SU CARRERA EN CUANTO EL APORTE HACIA EL DESARROLLO Y ADQUISICIÓN DE DESTREZAS PARA","ANÁLISIS PARA CADA RESPUESTA","","","","","","","",""),
-			array("","1","","2","","3","","4","","5"), // cabeceras de la pregunta 5
-			array("","FI","HI","FI","HI","FI","HI","FI","HI","FI","HI"), 
+			array("","1","","2","","3","","4","","5","","NINGUNO"), // cabeceras de la pregunta 5
+			array("","FI","HI","FI","HI","FI","HI","FI","HI","FI","HI","FI","HI"), 
 				array("Q5a Comportamiento ético",
 					$si_no['q5a1'], // FI de q5a1
 					($si_no['q5a1'] / $submissions), // HI de q5a1
@@ -948,6 +1053,8 @@ array(
 					($si_no['q5a4'] / $submissions),
 					$si_no['q5a5'],
 					($si_no['q5a5'] / $submissions),
+					$si_no['q5aninguno'],
+					($si_no['q5aninguno'] / $submissions),
 					),
 				array("Q5b Comunicación escrita",
 					$si_no['q5b1'], // FI de q5b1
@@ -960,6 +1067,8 @@ array(
 					($si_no['q5b4'] / $submissions),
 					$si_no['q5b5'],
 					($si_no['q5b5'] / $submissions),
+					$si_no['q5bninguno'],
+					($si_no['q5bninguno'] / $submissions),
 					),
 				array("Q5c Comunicación oral",
 					$si_no['q5c1'], // FI de q5c1
@@ -972,6 +1081,8 @@ array(
 					($si_no['q5c4'] / $submissions),
 					$si_no['q5c5'],
 					($si_no['q5c5'] / $submissions),
+					$si_no['q5cninguno'],
+					($si_no['q5cninguno'] / $submissions),
 					),
 				array("Q5d Generar y adaptar conocimiento",
 					$si_no['q5d1'], // FI de q5d1
@@ -984,6 +1095,8 @@ array(
 					($si_no['q5d4'] / $submissions),
 					$si_no['q5d5'],
 					($si_no['q5d5'] / $submissions),
+					$si_no['q5dninguno'],
+					($si_no['q5dninguno'] / $submissions),
 					),
 				array("Q5e Identificar definir y solucionar problemas",
 					$si_no['q5e1'], // FI de q5e1
@@ -996,6 +1109,8 @@ array(
 					($si_no['q5e4'] / $submissions),
 					$si_no['q5e5'],
 					($si_no['q5e5'] / $submissions),
+					$si_no['q5eninguno'],
+					($si_no['q5eninguno'] / $submissions),
 					),
 				array("Q5f Integrar nuevas tendencias en su profesión",
 					$si_no['q5f1'], // FI de q5f1
@@ -1008,6 +1123,8 @@ array(
 					($si_no['q5f4'] / $submissions),
 					$si_no['q5f5'],
 					($si_no['q5f5'] / $submissions),
+					$si_no['q5fninguno'],
+					($si_no['q5fninguno'] / $submissions),
 					),
 				array("Q5g Interdisciplinariedad",
 					$si_no['q5g1'], // FI de q5g1
@@ -1020,6 +1137,8 @@ array(
 					($si_no['q5g4'] / $submissions),
 					$si_no['q5g5'],
 					($si_no['q5g5'] / $submissions),
+					$si_no['q5gninguno'],
+					($si_no['q5gninguno'] / $submissions),
 					),
 				array("Q5h Pensamiento crítico",
 					$si_no['q5h1'], // FI de q5h1
@@ -1032,6 +1151,8 @@ array(
 					($si_no['q5h4'] / $submissions),
 					$si_no['q5h5'],
 					($si_no['q5h5'] / $submissions),
+					$si_no['q5hninguno'],
+					($si_no['q5hninguno'] / $submissions),
 					),
 				array("Q5i Trabajar autónomamente",
 					$si_no['q5i1'], // FI de q5i1
@@ -1044,6 +1165,8 @@ array(
 					($si_no['q5i4'] / $submissions),
 					$si_no['q5i5'],
 					($si_no['q5i5'] / $submissions),
+					$si_no['q5ininguno'],
+					($si_no['q5ininguno'] / $submissions),
 					),	
 				array(), array(), array(),
 
@@ -1124,8 +1247,70 @@ array(
   				($si_no['q8lchecked'] / $submissions)),
   			array(), array(), array(),
 
+  			array("Q9 ¿A CUÁLES DE LAS SIGUIENTES ORGANIZACIONES Y COMUNIDADES ACADÉMICAS RECONOCIDAS ESTÁ USTED VINCULADO?","ANÁLISIS PARA CADA RESPUESTA","","","","","","","",""),
+  			array("","SI","","","","NO" ),
+  			array("","NACIONAL","","INTERNACIONAL"),
+  			array("","FI","HI","FI","HI","FI","HI"), // Cabeceras de la pregunta 9
+  			array(
+  				"Q9a Asociaciones académicas",
+  				$si_no['q9asinacional'],
+  				(empty($si_no['q9asinacional']) ? "0" : $si_no['q9asinacional']/ ($si_no['q9asi'] != 0) ? $si_no['q9asi'] : "0"),
+  				$si_no['q9asiinternacional'],
+  				(empty($si_no['q9asiinternacional']) ? "0" : $si_no['q9asiinternacional']/ ($si_no['q9asi'] != 0) ? $si_no['q9asi'] : "0"),
+  				$si_no['q9ano'],
+  				($si_no['q9ano'] / $si_no['q9ano']),
+  				),
+  			array(
+  				"Q9b Asociaciones científicas",
+  				$si_no['q9bsinacional'],
+  				(empty($si_no['q9bsinacional']) ? "0" : $si_no['q9bsinacional']/ ($si_no['q9bsi'] != 0) ? $si_no['q9bsi'] : "0"),
+  				$si_no['q9bsiinternacional'],
+  				(empty($si_no['q9bsiinternacional']) ? "0" : $si_no['q9bsiinternacional']/ ($si_no['q9bsi'] != 0) ? $si_no['q9bsi'] : "0"),
+  				$si_no['q9bno'],
+  				($si_no['q9bno'] / $si_no['q9bno']),
+  				),
+  			array(
+  				"Q9c Asociaciones del sector productivo o financiero",
+  				$si_no['q9csinacional'],
+  				((empty($si_no['q9csinacional'])) ? "0" :  $si_no['q9csinacional']/ ($si_no['q9csi'] != 0) ? $si_no['q9csi'] : "0"),
+  				$si_no['q9csiinternacional'],
+  				($si_no['q9csiinternacional'] / ($si_no['q9csi'] != 0) ? $si_no['q9csi'] : "0"),
+  				$si_no['q9cno'],
+  				($si_no['q9cno'] / $si_no['q9cno']),
+  				),
+  			array(
+  				"Q9d Asociaciones gremiales / profesionales",
+  				$si_no['q9dsinacional'],
+  				(empty($si_no['q9dsinacional']) ? "0" : $si_no['q9dsinacional']/ ($si_no['q9dsi'] != 0) ? $si_no['q9dsi'] : "0"),
+  				$si_no['q9dsiinternacional'],
+  				(empty($si_no['q9dsiinternacional']) ? "0" : $si_no['q9dsiinternacional']/ ($si_no['q9dsi'] != 0) ? $si_no['q9dsi'] : "0"),
+  				$si_no['q9dno'],
+  				($si_no['q9dno'] / $si_no['q9dno']),
+  				),
+  			array(
+  				"Q9e Asociaciones técnicas o artísticas",
+  				$si_no['q9esinacional'],
+  				(empty($si_no['q9esinacional']) ? "0" : $si_no['q9esinacional']/ ($si_no['q9esi'] != 0) ? $si_no['q9esi'] : "0"),
+  				$si_no['q9esiinternacional'],
+  				(empty($si_no['q9esiinternacional']) ? "0" : $si_no['q9esiinternacional']/ ($si_no['q9esi'] != 0) ? $si_no['q9esi'] : "0"),
+  				$si_no['q9eno'],
+  				($si_no['q9eno'] / $si_no['q9eno']),
+  				),
+  			array(
+  				"Q9f Asociaciones tecnológicas",
+  				$si_no['q9fsinacional'],
+  				(empty($si_no['q9fsinacional']) ? "0" : $si_no['q9fsinacional']/ ($si_no['q9fsi'] != 0) ? $si_no['q9fsi'] : "0"),
+  				$si_no['q9fsiinternacional'],
+  				(empty($si_no['q9fsiinternacional']) ? "0" : $si_no['q9fsiinternacional']/ ($si_no['q9fsi'] != 0) ? $si_no['q9fsi'] : "0"),
+  				$si_no['q9fno'],
+  				($si_no['q9fno'] / $si_no['q9fno']),
+  				),
+
 	)
 );
+	dpm($si_no['q9csinacional']);
+	dpm($si_no['q9csi']);
+
   	$dir = file_stream_wrapper_get_instance_by_uri('public://')->realpath();
   	$path = "$dir/$filename";
   	$options = array('format' => 'xls');
