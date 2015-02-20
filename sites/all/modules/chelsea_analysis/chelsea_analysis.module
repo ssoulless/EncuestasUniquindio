@@ -66,7 +66,6 @@ function chelsea_analysis_requirements($phase) {
 }
 
 function chelsea_analysis_contents($nid){
-	dpm($nid);
   mysql_connect('localhost', 'servilla_alpha', 'grupoly2014');
   mysql_select_db('servilla_encuestas2');
   $consulta = sprintf("SELECT nid, sid, serial, submitted, remote_addr FROM webform_submissions WHERE nid = '%s' ORDER BY submitted DESC LIMIT 0,999999999", mysql_real_escape_string($nid));
@@ -556,12 +555,8 @@ function chelsea_analysis_page_dos() {
 	  $result = chelsea_analysis_contents(2);
 	  $submissions = count($result['submissions']);
 	  $si_no = array();
-	  dpm($result['submitted_data']);
 	  $numFila = 0;
 	  $numCol = 0;
-	  $prueba = $result['submitted_data'];
-	  $filaPrueba = 0;
-	  $colPrueba = 0;
 	  foreach ($result['submitted_data'] as $submission) {
 	    foreach($submission as $rows){
 	    	// pregunta 0--------------------------------------------------------------------------------
@@ -815,12 +810,6 @@ function chelsea_analysis_page_dos() {
 		}
 		++$numFila;
 	  }
-	$fila = $result['submitted_data'][$filaPrueba][$colPrueba];
-	$fila2 = $result['submitted_data'][$filaPrueba][$colPrueba+2];
-	//dpm($numFila);
-	//dpm($numCol);
-	dpm($fila);
-	dpm($fila2);
 	$rand = 'test';
   	$filename = $rand.'.xls';
   	$page = '<div><a href="/sites/default/files/'.$filename.'">Descargar reporte de excel para la encuesta de egresados</a></div>';
@@ -1308,8 +1297,6 @@ array(
 
 	)
 );
-	dpm($si_no['q9csinacional']);
-	dpm($si_no['q9csi']);
 
   	$dir = file_stream_wrapper_get_instance_by_uri('public://')->realpath();
   	$path = "$dir/$filename";
